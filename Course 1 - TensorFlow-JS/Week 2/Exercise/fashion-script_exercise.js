@@ -17,19 +17,18 @@ function getModel() {
     tf.layers.conv2d({
       inputShape: [28, 28, 1],
       kernelSize: 3,
-      filters: 8,
+      filters: 128,
       activation: "relu"
     })
   );
   model.add(tf.layers.maxPooling2d({ poolSize: [2, 2] }));
   model.add(
-    tf.layers.conv2d({ filters: 16, kernelSize: 3, activation: "relu" })
+    tf.layers.conv2d({ filters: 128, kernelSize: 3, activation: "relu" })
   );
   model.add(tf.layers.maxPooling2d({ poolSize: [2, 2] }));
   model.add(
-    tf.layers.conv2d({ filters: 24, kernelSize: 3, activation: "relu" })
+    tf.layers.conv2d({ filters: 128, kernelSize: 3, activation: "relu" })
   );
-  model.add(tf.layers.maxPooling2d({ poolSize: [2, 2] }));
   model.add(tf.layers.flatten());
   model.add(tf.layers.dense({ units: 128, activation: "relu" }));
   model.add(tf.layers.dense({ units: 10, activation: "softmax" }));
@@ -82,7 +81,7 @@ async function train(model, data) {
   return model.fit(trainXs, trainYs, {
     batchSize: BATCH_SIZE,
     validationData: [testXs, testYs],
-    epochs: 10,
+    epochs: 30,
     shuffle: true,
     callbacks: fitCallbacks
   });
